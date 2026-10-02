@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Modern Smart TV user agent for YouTube TV
+USER_AGENT="Mozilla/5.0 (Linux armeabi-v7a; Android 10) Cobalt/26.android.1.1036254-gold (unlike Gecko) v8/11.4.183.40-jit gles Starboard/17"
+
+# Dedicated profile directory
+PROFILE_DIR="$HOME/.local/share/steam-youtube-tv"
+mkdir -p "$PROFILE_DIR"
+
+# the variables needed to connect to the current desktop session.
+env -i \
+    HOME="$HOME" \
+    USER="$USER" \
+    PATH="/usr/bin:/usr/local/bin:/bin" \
+    DISPLAY="$DISPLAY" \
+    XAUTHORITY="$XAUTHORITY" \
+    WAYLAND_DISPLAY="$WAYLAND_DISPLAY" \
+    XDG_RUNTIME_DIR="$XDG_RUNTIME_DIR" \
+    DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" \
+    brave \
+        --kiosk \
+        --app="https://youtube.com/tv" \
+        --user-agent="$USER_AGENT" \
+        --user-data-dir="$PROFILE_DIR" \
+        --no-first-run \
+        --enable-gpu \
+        --autoplay-policy=no-user-gesture-required \
+        --force-device-scale-factor=1 \
+        --disable-features=TouchpadOverscrollHistoryNavigation \
+        --start-fullscreen &
+
+BRAVE_PID=$!
+
+# Keep the Steam shortcut running until Brave exits.
+wait "$BRAVE_PID"
+
+
+
+

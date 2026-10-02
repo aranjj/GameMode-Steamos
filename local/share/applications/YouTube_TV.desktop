@@ -1,0 +1,19 @@
+[Desktop Entry]
+Comment[en_US]=Launch YouTube TV
+Comment=Launch YouTube TV
+Exec=~/.local/bin/youtube-tv
+GenericName[en_US]=
+GenericName=
+Icon=
+MimeType=
+Name[en_US]=YouTube TV
+Name=YouTube TV
+NoDisplay=false
+Path=
+PrefersNonDefaultGPU=false
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

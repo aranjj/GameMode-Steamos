@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Prevent SDL games minimizing on focus changes
+export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
+
+# Experimental
+
+export STEAM_GAMESCOPE_FANCY_SCALING_SUPPORT=1
+export STEAM_GAMESCOPE_COLOR_MANAGED=1
+export STEAM_GAMESCOPE_TEARING_SUPPORTED=1
+export STEAM_GAMESCOPE_VRR_SUPPORTED=1
+export STEAM_ENABLE_DYNAMIC_BACKLIGHT=1
+export STEAM_LAUNCH_WRAPPER_SCOPE=1
+export STEAM_MULTIPLE_XWAYLANDS=1
+
+
+# Steam/GameScope integration
+export STEAM_USE_MANGOAPP=1
+export STEAM_MANGOAPP_PRESETS_SUPPORTED=1
+
+# Gamescope Vulkan WSI
+export ENABLE_GAMESCOPE_WSI=1
+
+# DX12 swapchain tweak (Valve default)
+export VKD3D_SWAPCHAIN_LATENCY_FRAMES=3
+
+# Dynamic FPS limiter support
+export STEAM_GAMESCOPE_DYNAMIC_FPSLIMITER=1
+export GAMESCOPE_LIMITER_FILE="$(mktemp /tmp/gamescope-limiter.XXXXXXXX)"
+
+# Better XWayland startup behavior
+export vk_xwayland_wait_ready=false
+
+kquitapp6 plasmashell
+
+gamescope \
+    --xwayland-count 2 \
+    --hide-cursor-delay 3000 \
+    --max-scale 2 \
+    --force-grab-cursor \
+    --fade-out-duration 200 \
+    --mangoapp \
+    -f \
+    -e \
+    -- steam -gamepadui -steamos3
+
+
+kstart plasmashell
